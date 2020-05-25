@@ -1,0 +1,92 @@
+data_format: 'yaml'
+log_filesize_limit: 500000000
+title: "ChIP-seq summary report"
+intro_text: "MultiQC reports summarise analysis results"
+
+report_header_info:
+    - Application Type: 'ChIP-seq'
+    
+extra_fn_clean_exts:
+    - type: remove
+      pattern: '.cc.qc'
+
+# Other MultiQC config stuff here
+custom_data:  
+  QC_summary:
+      id: "qc_summary"
+      plot_type: 'generalstats'
+      pconfig:
+        - Blacklist (%):
+            description: "Proportion of reads in blacklisted regions (%)"
+            scale: False
+        - FRIP (%):
+            description: "Proportion of fragments in peaks (%)"
+            scale: False
+  IDR:
+      id: "idr"
+      section_name: 'IDR analysis'
+      description: "Irreproducible Discovery Rate (IDR) – Evaluates reproducibility of high-throughput experiments 
+                    by measuring consistency between two biological replicates within an experiment.
+                    The self-consistency ratio (SCR) measures consistency within a single dataset.
+                    The rescue ratio (RR) measures consistency between datasets when the replicates within a single experiment are not comparable.
+                    Samples are evaluated according <a href='https://www.encodeproject.org/data-standards/terms/' target='_blank'>ENCODE standards</a>."
+      plot_type: 'table'
+      pconfig:
+        scale: False
+  Annotation:
+    id: "annotation"
+    section_name: 'Peak annotation'
+    description: "Consistent peaks were annotated using <a href='http://homer.ucsd.edu/homer/ngs/annotation.html' target='_blank'> HOMER annotatePeak.pl</a>.
+                   Annotation includes whether a peak is in the TSS (transcription start site), 
+                   TTS (transcription termination site), Exon (Coding), Non-coding gene, 5' UTR Exon, 3' UTR Exon, Intronic, or Intergenic.
+                   Transcription Start Site (TSS) is defined from -1kb to +100 bp. Transcription Termination Site (TTS)
+                  is defubed from -100 bp to +1kb."
+    plot_type: 'bargraph'
+
+section_comments:
+  deeptools_correlation: "Pair-wise correlation of analysed samples using <a href='https://deeptools.readthedocs.io/en/develop/content/tools/plotCorrelation.html' target='_blank'> plotCorrelation</a>."
+  deeptools_fingerprint: "Quality metrics of a ChIP enrichement. Detail explanation can be <a href='https://deeptools.readthedocs.io/en/develop/content/feature/plotFingerprint_QC_metrics.html' target='_blank'> here</a>."
+  deeptools_pca: "Principal component analysis of ChIP-seq samples."
+  
+table_cond_formatting_rules:
+    Result:
+        pass:
+            - s_eq: 'Ideal'
+        warn:
+            - s_eq: 'Acceptable'
+        fail:
+            - s_eq: 'Concerning'
+
+sp:
+    qc_summary:
+      fn: 'QC_summary.csv'
+    idr:
+      fn: 'IDR_summary.tsv'
+    annotation:
+      fn: 'Peak_annotation.summary.txt'
+    deeptools/plotCorrelationData:
+      fn: 'all.tsv'
+      contents: '#plotCorrelation --outFileCorMatrix'
+      num_lines: 1
+    deeptools/plotPCAData:
+      fn: 'all.dat'
+      contents: '#plotPCA --outFileNameData'
+      num_lines: 1
+    phantompeakqualtools/out:
+      fn: '*.cc.qc'
+
+top_modules:
+    - cutadapt
+    - fastqc
+    - bowtie2
+    - samblaster
+    - samtools
+    - deeptools
+    - macs2
+    - phantompeakquals
+    
+report_section_order::
+    idr:
+      order: -1000
+    annotation:
+      order: -1010

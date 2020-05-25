@@ -1,0 +1,43 @@
+---
+
+#-------------------------
+# Paths to external files
+#-------------------------
+
+bw2_index: 
+blacklist: 
+
+#------------------
+# General settings
+#------------------
+
+genome: 
+effectiveGenomeSize: 
+
+#----------------------------
+# Parameters for the analysis
+#----------------------------
+
+trim_galore:
+  q: 30
+bam_coverage:
+  normalize: "CPM"
+  bin: 30
+  smooth: 50
+bam_compare:
+  operation: "subtract"
+  normalize: "CPM"
+  bin: 30
+  smooth: 50
+  scaleFactorsMethod: "None"
+multiBigWigSummary:
+  bins: 5000
+plotCorrelation:
+  method: "pearson"
+  colormap: "RdYlBu_r"
+plotPCA:
+  top: 10000
+macs2:
+  q: 0.01
+macs2_IDR:
+  p: 0.01
