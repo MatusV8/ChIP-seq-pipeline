@@ -8,7 +8,7 @@ import subprocess
 import os
 
 parser = argparse.ArgumentParser(description = 'This script checks HOMER configuration')
-parser.add_argument("-g", "--genome", help = "Genome which to check. For example 'mm10' .")
+parser.add_argument("-g", "--genome", help = "Genome which to check. For example 'mm10' .", required=True)
 args = parser.parse_args()
 
 # Get path of the homer installation
