@@ -8,7 +8,7 @@ The analysis include these steps:
 * Quality control using [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 * Read mapping to a reference genome using [bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml)
 * Marking duplicates using [samblaster](https://github.com/GregoryFaust/samblaster)
-* Quality filtering of BAM files using [samtools]
+* Quality filtering of BAM files using [samtools](https://www.htslib.org/doc/)
 * Quality control using [phantompeakqualtools](https://github.com/kundajelab/phantompeakqualtools) and [deeptools](https://deeptools.readthedocs.io/en/develop/)
 * Peak calling using [MACS2](https://github.com/taoliu/MACS)
 * [Irreproducibility Discovery Rate (IDR)](https://www.encodeproject.org/software/idr/) analysis of samples with at least two replicates
@@ -72,7 +72,7 @@ the ChIP sample. Multiple file paths can be specified as in **File**. A control 
 
 ### Configuration of the parameters
 
-The `./config/config.yaml` config file contains various parameters used for the analysis. Before you start your analysis, you have to specify paths to **bowtie2_index** and **blacklist regions**, the genome you want to use (e.g "mm10" or "hg18") and **effective genome size** for normalization. All parameters except **effective genome size** have to be quoted with `""`. Optionally, you can edit the default parameters for quality filtering, peak calling or figure generation. Please refer to the manuals listed [above]](#chip-seq-pipeline).
+The `./config/config.yaml` config file contains various parameters used for the analysis. Before you start your analysis, you have to specify paths to **bowtie2_index** and **blacklist regions**, the genome you want to use (e.g "mm10" or "hg18") and **effective genome size** for normalization. All parameters except **effective genome size** have to be quoted with `""`. Optionally, you can edit the default parameters for quality filtering, peak calling or figure generation. Please refer to the manuals listed [above](#chip-seq-pipeline).
 
 Pre-build **bowtie2 indexes** can be downloaded [here](http://bowtie-bio.sourceforge.net/manual.shtml).
 
