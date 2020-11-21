@@ -27,7 +27,7 @@ git clone https://github.com/MatusV8/ChIP-seq-pipeline.git
 Create conda environment containing all required software for the pipeline and activate it:
 
 ```
-conda env create -f ./env/ChIP-seq.yml
+conda env create -f ./env/ChIP-seq.yaml
 conda activate ChIP-seq
 ```
 
